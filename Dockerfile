@@ -13,7 +13,7 @@ RUN \
         cmake \
         curl \
         git \
-        ninja \
+        ninja-build \
         python3.6 \
         wget \
         zlib1g \
