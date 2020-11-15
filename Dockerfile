@@ -14,7 +14,7 @@ RUN \
         curl \
         git \
         ninja-build \
-        python3.6 \
+        python3 \
         wget \
         zlib1g \
     ####################################
