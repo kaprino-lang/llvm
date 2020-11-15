@@ -26,9 +26,8 @@ RUN \
     && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/llvm-9.0.1.src.tar.xz \
     && tar xJf llvm-9.0.1.src.tar.xz \
     && mv ~/tmp/llvm-9.0.1.src ~/tmp/llvm \
-    && mkdir -p ~/tmp/llvm/build \
-    && cd ~/tmp/llvm/build \
-    && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --build .. --target install \
+    && cd ~/tmp/llvm \
+    && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --build . --target install \
     && rm -rf ~/tmp \
     && cd / \
     ####################################
