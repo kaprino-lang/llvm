@@ -29,7 +29,11 @@ RUN \
     && mv ~/tmp/llvm-9.0.1.src ~/tmp/llvm \
     && mkdir -p ~/tmp/llvm/build \
     && cd ~/tmp/llvm/build \
-    && cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -G Ninja \
+    && cmake .. \
+        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+        -DCMAKE_INSTALL_PREFIX=$HOME/llvm-9 \
+        -DCMAKE_BUILD_TYPE=Release \
+        -G Ninja \
     && ninja \
     && ninja install \
     && rm -rf ~/tmp \
@@ -39,7 +43,7 @@ RUN \
     # Install Rust
     #
     ####################################
-    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh \
+    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
     ####################################
     #
     # Eliminate garbage
@@ -47,3 +51,6 @@ RUN \
     ####################################
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+ENV LLVM_SYS_90_PREFIX=$HOME/llvm-9
+ENV PATH $HOME/.cargo/bin:$PATH
