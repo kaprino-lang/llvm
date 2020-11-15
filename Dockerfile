@@ -29,7 +29,7 @@ RUN \
     && mkdir -p ~/tmp/llvm/build \
     && cd ~/tmp/llvm/build \
     && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --build .. --target install \
-    && rm -rf ~/tmp
+    && rm -rf ~/tmp \
     && cd / \
     ####################################
     #
