@@ -22,13 +22,13 @@ RUN \
     # Build LLVM
     #
     ####################################
-    && mkdir ~/tmp \
-    && cd ~/tmp \
+    && mkdir /root/tmp \
+    && cd /root/tmp \
     && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/llvm-9.0.1.src.tar.xz \
     && tar xJf llvm-9.0.1.src.tar.xz \
-    && mv ~/tmp/llvm-9.0.1.src ~/tmp/llvm \
-    && mkdir -p ~/tmp/llvm/build \
-    && cd ~/tmp/llvm/build \
+    && mv /root/tmp/llvm-9.0.1.src /root/tmp/llvm \
+    && mkdir -p /root/tmp/llvm/build \
+    && cd /root/tmp/llvm/build \
     && cmake .. \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
         -DCMAKE_INSTALL_PREFIX=$HOME/llvm-9 \
@@ -36,7 +36,7 @@ RUN \
         -G Ninja \
     && ninja \
     && ninja install \
-    && rm -rf ~/tmp \
+    && rm -rf /root/tmp \
     && cd / \
     ####################################
     #
@@ -52,5 +52,5 @@ RUN \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENV LLVM_SYS_90_PREFIX=$HOME/llvm-9
-ENV PATH $HOME/.cargo/bin:$PATH
+ENV LLVM_SYS_90_PREFIX /root/llvm-9
+ENV PATH $PATH:/root/.cargo/bin
