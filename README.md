@@ -9,11 +9,12 @@ An image generated from this file can be used for not only testing but also work
 
 Ubuntu 20.04
 
-## Installed applications
+## Installed applications and libraries
 
 - cargo
 - cmake
 - git
+- libffi-dev
 - llvm
 - ninja
 - python3
