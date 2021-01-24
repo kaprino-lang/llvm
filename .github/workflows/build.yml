@@ -6,14 +6,31 @@ on:
 
 jobs:
   deploy:
+    name: Deploy kaprino/llvm:${{ matrix.config.tag }}
     runs-on: ubuntu-latest
+    continue-on-error: true
+
+    strategy:
+      matrix:
+        config:
+          - { path: "./Dockerfile", tag: "latest" }
+          - { path: "./llvm9/Dockerfile", tag: "llvm9" }
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker/build-push-action@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: kaprino/llvm
-          tags: "latest"
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          file: ${{ matrix.config.path }}
+          tags: kaprino/llvm:${{ matrix.config.tag }}
           push: true
