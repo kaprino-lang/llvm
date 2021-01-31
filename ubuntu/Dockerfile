@@ -25,14 +25,14 @@ RUN \
     ####################################
     && mkdir /root/tmp \
     && cd /root/tmp \
-    && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/llvm-9.0.1.src.tar.xz \
-    && tar xJf llvm-9.0.1.src.tar.xz \
-    && mv /root/tmp/llvm-9.0.1.src /root/tmp/llvm \
+    && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-11.0.1.src.tar.xz \
+    && tar xJf llvm-11.0.1.src.tar.xz \
+    && mv /root/tmp/llvm-11.0.1.src /root/tmp/llvm \
     && mkdir -p /root/tmp/llvm/build \
     && cd /root/tmp/llvm/build \
     && cmake .. \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-        -DCMAKE_INSTALL_PREFIX=$HOME/llvm-9 \
+        -DCMAKE_INSTALL_PREFIX=$HOME/llvm \
         -DCMAKE_BUILD_TYPE=Release \
         -G Ninja \
     && ninja \
@@ -50,8 +50,15 @@ RUN \
     # Eliminate garbage
     #
     ####################################
+    && apt-get purge \
+        cmake \
+        curl \
+        git \
+        ninja-build \
+        python3 \
+        wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENV LLVM_SYS_90_PREFIX /root/llvm-9
+ENV LLVM_SYS_110_PREFIX /root/llvm
 ENV PATH $PATH:/root/.cargo/bin

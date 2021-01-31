@@ -1,5 +1,4 @@
-FROM ubuntu:20.04
-ENV DEBIAN_FRONTEND "noninteractive"
+FROM alpine:3.13
 
 RUN \
     ####################################
@@ -7,17 +6,14 @@ RUN \
     # Install dependencies
     #
     ####################################
-    apt-get update \
-    && apt-get install -y \
-        build-essential \
+    apk add --update --no-cache -y \
+        alpine-sdk \
         cmake \
-        curl \
-        git \
         libffi-dev \
-        ninja-build \
+        ninja \
         python3 \
         wget \
-        zlib1g \
+        zlib \
     ####################################
     #
     # Build LLVM
@@ -50,8 +46,11 @@ RUN \
     # Eliminate garbage
     #
     ####################################
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apk del --purge -y \
+        cmake \
+        ninja \
+        python3 \
+        wget
 
 ENV LLVM_SYS_110_PREFIX /root/llvm
 ENV PATH $PATH:/root/.cargo/bin

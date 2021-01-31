@@ -13,8 +13,9 @@ jobs:
     strategy:
       matrix:
         config:
-          - { path: "./Dockerfile", tag: "latest" }
-          - { path: "./llvm9/Dockerfile", tag: "llvm9" }
+          - { path: "./ubuntu/Dockerfile", tag: "latest" }
+          - { path: "./ubuntu/Dockerfile", tag: "ubuntu" }
+          - { path: "./alpine/Dockerfile", tag: "alpine" }
 
     steps:
       - name: Checkout
